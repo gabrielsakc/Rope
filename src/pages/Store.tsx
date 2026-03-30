@@ -25,6 +25,15 @@ const products = [
   { id: 19, name: 'Rodillo Quitapelos Pro',        price: '$18.90',  rating: 4.9, image: '/images/Screenshot_125.png',  category: 'Cuidado' },
 ];
 
+const categoryKeyMap: Record<string, 'accessories' | 'transport' | 'kit' | 'rest' | 'clothing' | 'care'> = {
+  'Accesorios': 'accessories',
+  'Transporte': 'transport',
+  'Kit Completo': 'kit',
+  'Descanso': 'rest',
+  'Ropa': 'clothing',
+  'Cuidado': 'care',
+};
+
 export function Store() {
   const { user } = useUser();
   const { t } = useLanguage();
@@ -82,7 +91,7 @@ export function Store() {
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{product.category}</span>
+                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{t(categoryKeyMap[product.category] ?? 'accessories')}</span>
                     <div className="flex items-center gap-1 text-secondary">
                       <Star className="w-3 h-3 fill-current" />
                       <span className="text-xs font-bold">{product.rating}</span>

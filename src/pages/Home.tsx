@@ -36,7 +36,7 @@ export function Home() {
 
   useEffect(() => {
     async function fetchTip() {
-      const result = await getWellnessTip(petInfo, metrics);
+      const result = await getWellnessTip(petInfo, metrics, lang);
       setTip(result || '');
       setLoading(false);
     }

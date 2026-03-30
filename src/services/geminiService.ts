@@ -5,13 +5,22 @@ const IS_DEMO = !API_KEY || API_KEY === 'YOUR_API_KEY_HERE';
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
-const MOCK_TIPS = [
-  "Basado en su actividad de hoy, {name} necesitará un aumento de hidratación y una cena rica en Omega-3. Recomendamos 15 minutos de juego ligero antes de dormir.",
-  "{name} ha tenido un día muy activo. Asegúrate de revisar sus almohadillas y proporcionar un descanso ininterrumpido de al menos 4 horas esta tarde.",
-  "La frecuencia cardíaca de {name} indica un estado de calma ideal. Es un buen momento para una sesión corta de entrenamiento cognitivo o juegos de olfato.",
-  "Detección de ligero estrés ambiental. Se recomienda un paseo por una zona conocida y tranquila para estabilizar sus niveles de cortisol.",
-  "¡Excelente nivel de energía! {name} se beneficiaría de un desafío físico mayor mañana por la mañana para mantener su equilibrio muscular."
-];
+const MOCK_TIPS: Record<string, string[]> = {
+  es: [
+    "Basado en su actividad de hoy, {name} necesitará un aumento de hidratación y una cena rica en Omega-3. Recomendamos 15 minutos de juego ligero antes de dormir.",
+    "{name} ha tenido un día muy activo. Asegúrate de revisar sus almohadillas y proporcionar un descanso ininterrumpido de al menos 4 horas esta tarde.",
+    "La frecuencia cardíaca de {name} indica un estado de calma ideal. Es un buen momento para una sesión corta de entrenamiento cognitivo o juegos de olfato.",
+    "Detección de ligero estrés ambiental. Se recomienda un paseo por una zona conocida y tranquila para estabilizar sus niveles de cortisol.",
+    "¡Excelente nivel de energía! {name} se beneficiaría de un desafío físico mayor mañana por la mañana para mantener su equilibrio muscular."
+  ],
+  en: [
+    "Based on today's activity, {name} will need extra hydration and an Omega-3-rich dinner. We recommend 15 minutes of light play before bedtime.",
+    "{name} has had a very active day. Make sure to check their paw pads and provide at least 4 hours of uninterrupted rest this afternoon.",
+    "{name}'s heart rate indicates an ideal calm state. This is a great moment for a short cognitive training session or nose-work games.",
+    "Mild environmental stress detected. A walk in a familiar, quiet area is recommended to stabilize their cortisol levels.",
+    "Excellent energy level! {name} would benefit from a bigger physical challenge tomorrow morning to maintain their muscle balance."
+  ]
+};
 
 const MOCK_PLACES = [
   { title: "Veterinaria San Antón", uri: "https://maps.google.com/?q=veterinaria+san+anton" },
@@ -20,32 +29,34 @@ const MOCK_PLACES = [
   { title: "Clínica Veterinaria Amigos", uri: "https://maps.google.com/?q=clinica+veterinaria+amigos" }
 ];
 
-export async function getWellnessTip(petInfo: { name: string; breed: string; age: number }, metrics: any) {
+export async function getWellnessTip(petInfo: { name: string; breed: string; age: number }, metrics: any, lang: string = 'es') {
   if (IS_DEMO) {
-    const tip = MOCK_TIPS[Math.floor(Math.random() * MOCK_TIPS.length)];
+    const tips = MOCK_TIPS[lang] ?? MOCK_TIPS['es'];
+    const tip = tips[Math.floor(Math.random() * tips.length)];
     return tip.replace("{name}", petInfo.name);
   }
 
   const model = "gemini-3-flash-preview";
-  const prompt = `Analiza los siguientes datos de bienestar para ${petInfo.name} (${petInfo.breed}, ${petInfo.age} años):
-  Métricas Actuales: ${JSON.stringify(metrics)}
-  
-  Proporciona un consejo de bienestar corto (máximo 2-3 frases), profesional, reconfortante y preciso en ESPAÑOL. 
-  Enfócate en la recuperación, hidratación o optimización de la actividad según las métricas.`;
+  const language = lang === 'en' ? 'ENGLISH' : 'SPANISH';
+  const prompt = `Analyze the following wellness data for ${petInfo.name} (${petInfo.breed}, ${petInfo.age} years old):
+  Current Metrics: ${JSON.stringify(metrics)}
+
+  Provide a short wellness tip (max 2-3 sentences), professional, reassuring and precise in ${language}.
+  Focus on recovery, hydration or activity optimization based on the metrics.`;
 
   try {
     const response = await ai.models.generateContent({
       model,
       contents: prompt,
       config: {
-        systemInstruction: "Eres un experto mundial en bienestar canino. Tu tono es profesional, cercano y muy preciso. Siempre respondes en español.",
+        systemInstruction: `You are a world-class canine wellness expert. Your tone is professional, warm, and very precise. Always respond in ${language}.`,
       },
     });
     return response.text;
   } catch (error) {
     console.error("Error fetching wellness tip:", error);
-    const tip = MOCK_TIPS[0];
-    return tip.replace("{name}", petInfo.name);
+    const tips = MOCK_TIPS[lang] ?? MOCK_TIPS['es'];
+    return tips[0].replace("{name}", petInfo.name);
   }
 }
 
