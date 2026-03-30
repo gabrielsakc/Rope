@@ -1,16 +1,18 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, HeartPulse, MapPin, ShoppingBag, User, Stethoscope } from 'lucide-react';
+import { Home, HeartPulse, ShoppingBag, User, Stethoscope } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function BottomNav() {
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navItems = [
-    { label: 'Inicio',  icon: Home,         path: '/home' },
-    { label: 'Salud',   icon: HeartPulse,   path: '/health' },
-    { label: 'Vets',    icon: Stethoscope,  path: '/vets' },
-    { label: 'Tienda',  icon: ShoppingBag,  path: '/store' },
-    { label: 'Perfil',  icon: User,         path: '/profile' },
+    { label: t('nav_home'),    icon: Home,         path: '/home' },
+    { label: t('nav_health'),  icon: HeartPulse,   path: '/health' },
+    { label: t('nav_vets'),    icon: Stethoscope,  path: '/vets' },
+    { label: t('nav_store'),   icon: ShoppingBag,  path: '/store' },
+    { label: t('nav_profile'), icon: User,         path: '/profile' },
   ];
 
   return (
@@ -25,8 +27,8 @@ export function BottomNav() {
             to={item.path}
             className={cn(
               "flex flex-col items-center justify-center px-5 py-2 transition-all duration-300 ease-out active:scale-90",
-              isActive 
-                ? "bg-[#8DA18D]/20 text-[#506352] rounded-full" 
+              isActive
+                ? "bg-[#8DA18D]/20 text-[#506352] rounded-full"
                 : "text-[#1B1C1A]/40 hover:text-[#506352]"
             )}
           >

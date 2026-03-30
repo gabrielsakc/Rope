@@ -13,6 +13,7 @@ import { Profile } from './pages/Profile';
 import { Vets } from './pages/Vets';
 import { BottomNav } from './components/BottomNav';
 import { UserProvider } from './contexts/UserContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 function AppContent() {
   const [step, setStep] = useState<'splash' | 'onboarding' | 'login' | 'setup' | 'app'>(() => {
@@ -57,8 +58,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <UserProvider>
-      <AppContent />
-    </UserProvider>
+    <LanguageProvider>
+      <UserProvider>
+        <AppContent />
+      </UserProvider>
+    </LanguageProvider>
   );
 }

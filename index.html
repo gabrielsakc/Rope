@@ -114,6 +114,21 @@
     .header-cta { display: flex; align-items: center; gap: 10px; }
     .header-cta .btn { padding: 10px 20px; font-size: 14px; }
 
+    /* Language switcher */
+    .lang-switcher {
+      display: flex; align-items: center;
+      background: var(--accent); border-radius: 50px;
+      overflow: hidden; border: 1px solid var(--border);
+    }
+    .lang-btn {
+      padding: 6px 12px; font-size: 11px; font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase;
+      background: none; border: none; cursor: pointer;
+      color: var(--text-3); font-family: 'Outfit', sans-serif;
+      transition: background .2s, color .2s;
+    }
+    .lang-btn.active { background: var(--primary); color: #fff; border-radius: 50px; }
+
     .menu-btn {
       display: none; flex-direction: column; gap: 5px;
       background: none; border: none; cursor: pointer; padding: 4px; z-index: 200;
@@ -583,14 +598,18 @@
         Dogs Feels
       </a>
       <nav class="nav">
-        <a href="#funciones">Funciones</a>
-        <a href="#app">La App</a>
-        <a href="#como-funciona">Cómo funciona</a>
-        <a href="#tienda">Tienda</a>
+        <a href="#funciones" data-i18n="nav_features">Funciones</a>
+        <a href="#app" data-i18n="nav_app">La App</a>
+        <a href="#como-funciona" data-i18n="nav_how">Cómo funciona</a>
+        <a href="#tienda" data-i18n="nav_store">Tienda</a>
       </nav>
       <div class="header-cta">
-        <a href="/app.html" class="btn btn-ghost">Iniciar sesión</a>
-        <a href="/app.html" class="btn">Probar gratis</a>
+        <div class="lang-switcher">
+          <button onclick="setLang('es')" id="btn-es" class="lang-btn active">ES</button>
+          <button onclick="setLang('en')" id="btn-en" class="lang-btn">EN</button>
+        </div>
+        <a href="/app.html" class="btn btn-ghost" data-i18n="login">Iniciar sesión</a>
+        <a href="/app.html" class="btn" data-i18n="try_free">Probar gratis</a>
       </div>
       <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">
         <span></span><span></span><span></span>
@@ -600,11 +619,11 @@
 
   <!-- Mobile nav -->
   <nav class="mobile-nav" id="mobileNav">
-    <a href="#funciones">Funciones</a>
-    <a href="#app">La App</a>
-    <a href="#como-funciona">Cómo funciona</a>
-    <a href="#tienda">Tienda</a>
-    <a href="/app.html" class="btn">Entrar a la app →</a>
+    <a href="#funciones" data-i18n="nav_features">Funciones</a>
+    <a href="#app" data-i18n="nav_app">La App</a>
+    <a href="#como-funciona" data-i18n="nav_how">Cómo funciona</a>
+    <a href="#tienda" data-i18n="nav_store">Tienda</a>
+    <a href="/app.html" class="btn" data-i18n="enter_app">Entrar a la app →</a>
   </nav>
 
   <!-- ════════════════ HERO ════════════════ -->
@@ -614,27 +633,27 @@
 
       <!-- Copy -->
       <div class="hero-copy">
-        <div class="hero-eyebrow">IA de bienestar canino</div>
-        <h1>Entiende el<br>alma de tu<br><em>mejor amigo.</em></h1>
-        <p class="hero-sub">
+        <div class="hero-eyebrow" data-i18n="hero_eyebrow">IA de bienestar canino</div>
+        <h1 data-i18n-html="hero_h1">Entiende el<br>alma de tu<br><em>mejor amigo.</em></h1>
+        <p class="hero-sub" data-i18n="hero_sub">
           La primera app que combina biometría en tiempo real, inteligencia artificial y seguimiento emocional para que nunca te pierdas cómo se siente tu perro.
         </p>
         <div class="hero-actions">
-          <a href="/app.html" class="btn">Comenzar gratis →</a>
-          <a href="#funciones" class="btn btn-ghost">Ver funciones</a>
+          <a href="/app.html" class="btn" data-i18n="hero_cta">Comenzar gratis →</a>
+          <a href="#funciones" class="btn btn-ghost" data-i18n="hero_cta2">Ver funciones</a>
         </div>
         <div class="hero-stats">
           <div>
             <div class="stat-val">72</div>
-            <div class="stat-lbl">BPM en vivo</div>
+            <div class="stat-lbl" data-i18n="stat_bpm">BPM en vivo</div>
           </div>
           <div>
             <div class="stat-val">4.5k</div>
-            <div class="stat-lbl">Pasos hoy</div>
+            <div class="stat-lbl" data-i18n="stat_steps">Pasos hoy</div>
           </div>
           <div>
             <div class="stat-val">8.5h</div>
-            <div class="stat-lbl">Calidad sueño</div>
+            <div class="stat-lbl" data-i18n="stat_sleep">Calidad sueño</div>
           </div>
         </div>
       </div>
@@ -779,22 +798,22 @@
 
       <!-- Copy -->
       <div class="dog-copy reveal d2">
-        <div class="label">Bienestar integral</div>
-        <h2>Cada dato,<br>una historia<br>de <em style="color:var(--primary);font-style:normal;">bienestar.</em></h2>
-        <p>Dogs Feels convierte señales invisibles — ritmo cardíaco, temperatura, patrones de sueño — en información clara y accionable para que cuides a tu perro como merece.</p>
+        <div class="label" data-i18n="dog_label">Bienestar integral</div>
+        <h2 data-i18n-html="dog_h2">Cada dato,<br>una historia<br>de <em style="color:var(--primary);font-style:normal;">bienestar.</em></h2>
+        <p data-i18n="dog_p">Dogs Feels convierte señales invisibles — ritmo cardíaco, temperatura, patrones de sueño — en información clara y accionable para que cuides a tu perro como merece.</p>
 
         <div class="tag-pills">
-          <span class="tag-pill"><span class="tag-pill-dot" style="background:#e05353;"></span>Ritmo Cardíaco</span>
-          <span class="tag-pill"><span class="tag-pill-dot" style="background:#526352;"></span>Actividad Física</span>
-          <span class="tag-pill"><span class="tag-pill-dot" style="background:#7a8fbf;"></span>Calidad de Sueño</span>
-          <span class="tag-pill"><span class="tag-pill-dot" style="background:#8b6daf;"></span>Nivel de Estrés</span>
-          <span class="tag-pill"><span class="tag-pill-dot" style="background:#e8a030;"></span>Temperatura</span>
-          <span class="tag-pill"><span class="tag-pill-dot" style="background:#5fbd72;"></span>Estado Emocional</span>
-          <span class="tag-pill"><span class="tag-pill-dot" style="background:#40a8c4;"></span>Zona Segura GPS</span>
-          <span class="tag-pill"><span class="tag-pill-dot" style="background:#d45f8a;"></span>Sugerencias IA</span>
+          <span class="tag-pill"><span class="tag-pill-dot" style="background:#e05353;"></span><span data-i18n="pill_heart">Ritmo Cardíaco</span></span>
+          <span class="tag-pill"><span class="tag-pill-dot" style="background:#526352;"></span><span data-i18n="pill_activity">Actividad Física</span></span>
+          <span class="tag-pill"><span class="tag-pill-dot" style="background:#7a8fbf;"></span><span data-i18n="pill_sleep">Calidad de Sueño</span></span>
+          <span class="tag-pill"><span class="tag-pill-dot" style="background:#8b6daf;"></span><span data-i18n="pill_stress">Nivel de Estrés</span></span>
+          <span class="tag-pill"><span class="tag-pill-dot" style="background:#e8a030;"></span><span data-i18n="pill_temp">Temperatura</span></span>
+          <span class="tag-pill"><span class="tag-pill-dot" style="background:#5fbd72;"></span><span data-i18n="pill_mood">Estado Emocional</span></span>
+          <span class="tag-pill"><span class="tag-pill-dot" style="background:#40a8c4;"></span><span data-i18n="pill_gps">Zona Segura GPS</span></span>
+          <span class="tag-pill"><span class="tag-pill-dot" style="background:#d45f8a;"></span><span data-i18n="pill_ai">Sugerencias IA</span></span>
         </div>
 
-        <a href="/app.html" class="btn">Ver mi perro en tiempo real →</a>
+        <a href="/app.html" class="btn" data-i18n="dog_cta">Ver mi perro en tiempo real →</a>
       </div>
 
     </div>
@@ -804,40 +823,40 @@
   <section class="features" id="funciones">
     <div class="wrap">
       <div class="section-head reveal">
-        <div class="label">Funciones principales</div>
-        <h2>Tecnología con alma canina</h2>
-        <p>Biometría avanzada, IA de última generación y años de investigación veterinaria para crear el vínculo más profundo entre tú y tu perro.</p>
+        <div class="label" data-i18n="feat_label">Funciones principales</div>
+        <h2 data-i18n="feat_h2">Tecnología con alma canina</h2>
+        <p data-i18n="feat_p">Biometría avanzada, IA de última generación y años de investigación veterinaria para crear el vínculo más profundo entre tú y tu perro.</p>
       </div>
       <div class="feat-grid">
         <div class="feat-card reveal">
           <div class="feat-icon">💓</div>
-          <h3>Biometría en Tiempo Real</h3>
-          <p>Monitoreo continuo del ritmo cardíaco, temperatura, pasos y calidad de sueño. Detecta estrés, fatiga o alegría antes de que sean evidentes.</p>
+          <h3 data-i18n="feat1_h">Biometría en Tiempo Real</h3>
+          <p data-i18n="feat1_p">Monitoreo continuo del ritmo cardíaco, temperatura, pasos y calidad de sueño. Detecta estrés, fatiga o alegría antes de que sean evidentes.</p>
         </div>
         <div class="feat-card reveal d1">
           <div class="feat-icon">🧠</div>
-          <h3>IA con Gemini</h3>
-          <p>Algoritmos entrenados con Google Gemini que analizan el estado emocional de tu mascota y generan recomendaciones personalizadas cada día.</p>
+          <h3 data-i18n="feat2_h">IA con Gemini</h3>
+          <p data-i18n="feat2_p">Algoritmos entrenados con Google Gemini que analizan el estado emocional de tu mascota y generan recomendaciones personalizadas cada día.</p>
         </div>
         <div class="feat-card reveal d2">
           <div class="feat-icon">📍</div>
-          <h3>Zona Segura Activa</h3>
-          <p>Perímetro de seguridad personalizable con alertas inmediatas. Sabe en todo momento dónde está tu perro y recibe alertas si sale de su zona.</p>
+          <h3 data-i18n="feat3_h">Zona Segura Activa</h3>
+          <p data-i18n="feat3_p">Perímetro de seguridad personalizable con alertas inmediatas. Sabe en todo momento dónde está tu perro y recibe alertas si sale de su zona.</p>
         </div>
         <div class="feat-card reveal">
           <div class="feat-icon">🏃</div>
-          <h3>Tracking de Actividad</h3>
-          <p>Registra paseos, juego y descanso con distancia, duración y estadísticas semanales para optimizar el bienestar físico de tu mascota.</p>
+          <h3 data-i18n="feat4_h">Tracking de Actividad</h3>
+          <p data-i18n="feat4_p">Registra paseos, juego y descanso con distancia, duración y estadísticas semanales para optimizar el bienestar físico de tu mascota.</p>
         </div>
         <div class="feat-card reveal d1">
           <div class="feat-icon">🌙</div>
-          <h3>Análisis de Sueño</h3>
-          <p>Patrones de descanso detallados con gráficas semanales. Identifica irregularidades que pueden indicar problemas de salud o ansiedad.</p>
+          <h3 data-i18n="feat5_h">Análisis de Sueño</h3>
+          <p data-i18n="feat5_p">Patrones de descanso detallados con gráficas semanales. Identifica irregularidades que pueden indicar problemas de salud o ansiedad.</p>
         </div>
         <div class="feat-card reveal d2">
           <div class="feat-icon">🛍️</div>
-          <h3>Tienda Personalizada</h3>
-          <p>Productos seleccionados por IA según el perfil único de tu mascota: raza, edad, nivel de actividad y estado emocional actual.</p>
+          <h3 data-i18n="feat6_h">Tienda Personalizada</h3>
+          <p data-i18n="feat6_p">Productos seleccionados por IA según el perfil único de tu mascota: raza, edad, nivel de actividad y estado emocional actual.</p>
         </div>
       </div>
     </div>
@@ -959,18 +978,18 @@
 
       <!-- Copy -->
       <div class="screens-copy reveal d2">
-        <div class="label">La app en detalle</div>
-        <h2>Todo lo que necesita tu perro, en una sola pantalla.</h2>
-        <p>Dogs Feels centraliza el bienestar completo de tu mascota. Desde métricas de salud en vivo hasta productos recomendados por IA según su perfil único.</p>
+        <div class="label" data-i18n="screens_label">La app en detalle</div>
+        <h2 data-i18n="screens_h2">Todo lo que necesita tu perro, en una sola pantalla.</h2>
+        <p data-i18n="screens_p">Dogs Feels centraliza el bienestar completo de tu mascota. Desde métricas de salud en vivo hasta productos recomendados por IA según su perfil único.</p>
         <ul class="check-list">
-          <li class="check-item">Monitor de salud con 5 métricas biométricas</li>
-          <li class="check-item">Recomendaciones IA generadas por Gemini</li>
-          <li class="check-item">Historial de actividades y análisis de sueño</li>
-          <li class="check-item">Tienda personalizada según el perfil de tu perro</li>
-          <li class="check-item">Zona segura con alertas en tiempo real</li>
-          <li class="check-item">Perfil completo: raza, edad, peso, género</li>
+          <li class="check-item" data-i18n="check1">Monitor de salud con 5 métricas biométricas</li>
+          <li class="check-item" data-i18n="check2">Recomendaciones IA generadas por Gemini</li>
+          <li class="check-item" data-i18n="check3">Historial de actividades y análisis de sueño</li>
+          <li class="check-item" data-i18n="check4">Tienda personalizada según el perfil de tu perro</li>
+          <li class="check-item" data-i18n="check5">Zona segura con alertas en tiempo real</li>
+          <li class="check-item" data-i18n="check6">Perfil completo: raza, edad, peso, género</li>
         </ul>
-        <a href="/app.html" class="btn">Explorar la app →</a>
+        <a href="/app.html" class="btn" data-i18n="screens_cta">Explorar la app →</a>
       </div>
 
     </div>
@@ -980,30 +999,30 @@
   <section class="how" id="como-funciona">
     <div class="wrap">
       <div class="section-head reveal">
-        <div class="label">Proceso</div>
-        <h2>Empieza en 4 pasos simples</h2>
-        <p>En minutos tienes acceso completo a todas las funciones de bienestar para tu mejor amigo.</p>
+        <div class="label" data-i18n="how_label">Proceso</div>
+        <h2 data-i18n="how_h2">Empieza en 4 pasos simples</h2>
+        <p data-i18n="how_p">En minutos tienes acceso completo a todas las funciones de bienestar para tu mejor amigo.</p>
       </div>
       <div class="steps">
         <div class="step reveal">
           <div class="step-num">01</div>
-          <h3>Crea tu cuenta</h3>
-          <p>Regístrate con email o Google en menos de 30 segundos.</p>
+          <h3 data-i18n="step1_h">Crea tu cuenta</h3>
+          <p data-i18n="step1_p">Regístrate con email o Google en menos de 30 segundos.</p>
         </div>
         <div class="step reveal d1">
           <div class="step-num">02</div>
-          <h3>Configura el perfil</h3>
-          <p>Ingresa nombre, raza, edad y peso de tu perro.</p>
+          <h3 data-i18n="step2_h">Configura el perfil</h3>
+          <p data-i18n="step2_p">Ingresa nombre, raza, edad y peso de tu perro.</p>
         </div>
         <div class="step reveal d2">
           <div class="step-num">03</div>
-          <h3>Conecta el dispositivo</h3>
-          <p>Vincula el arnés o collar inteligente para datos en vivo.</p>
+          <h3 data-i18n="step3_h">Conecta el dispositivo</h3>
+          <p data-i18n="step3_p">Vincula el arnés o collar inteligente para datos en vivo.</p>
         </div>
         <div class="step reveal d3">
           <div class="step-num">04</div>
-          <h3>Entiéndelo</h3>
-          <p>La IA analiza sus datos y te da insights personalizados cada día.</p>
+          <h3 data-i18n="step4_h">Entiéndelo</h3>
+          <p data-i18n="step4_p">La IA analiza sus datos y te da insights personalizados cada día.</p>
         </div>
       </div>
     </div>
@@ -1013,9 +1032,9 @@
   <section class="store" id="tienda">
     <div class="wrap">
       <div class="section-head reveal">
-        <div class="label">Tienda</div>
-        <h2>Productos seleccionados por IA</h2>
-        <p>Cada recomendación está personalizada según el perfil de tu mascota: raza, edad, nivel de actividad y estado emocional actual.</p>
+        <div class="label" data-i18n="store_label">Tienda</div>
+        <h2 data-i18n="store_h2">Productos seleccionados por IA</h2>
+        <p data-i18n="store_p">Cada recomendación está personalizada según el perfil de tu mascota: raza, edad, nivel de actividad y estado emocional actual.</p>
       </div>
     </div>
     <div class="store-track-wrap reveal">
@@ -1129,11 +1148,11 @@
         <div class="cta-orb o1"></div>
         <div class="cta-orb o2"></div>
         <div class="cta-copy">
-          <h2>¿Listo para<br>entender a tu perro?</h2>
-          <p>Únete a miles de dueños que ya han transformado su relación con sus mascotas gracias a la tecnología de Dogs Feels.</p>
+          <h2 data-i18n-html="cta_h2">¿Listo para<br>entender a tu perro?</h2>
+          <p data-i18n="cta_p">Únete a miles de dueños que ya han transformado su relación con sus mascotas gracias a la tecnología de Dogs Feels.</p>
         </div>
         <div class="cta-action">
-          <a href="/app.html" class="btn btn-white">Comenzar ahora →</a>
+          <a href="/app.html" class="btn btn-white" data-i18n="cta_btn">Comenzar ahora →</a>
         </div>
       </div>
     </div>
@@ -1213,6 +1232,109 @@
       });
     }, { threshold: 0.07, rootMargin: '0px 0px -36px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── i18n ────────────────────────────────────────────────────────
+    const i18n = {
+      es: {
+        nav_features: 'Funciones', nav_app: 'La App', nav_how: 'Cómo funciona', nav_store: 'Tienda',
+        login: 'Iniciar sesión', try_free: 'Probar gratis', enter_app: 'Entrar a la app →',
+        hero_eyebrow: 'IA de bienestar canino',
+        hero_h1: 'Entiende el<br>alma de tu<br><em>mejor amigo.</em>',
+        hero_sub: 'La primera app que combina biometría en tiempo real, inteligencia artificial y seguimiento emocional para que nunca te pierdas cómo se siente tu perro.',
+        hero_cta: 'Comenzar gratis →', hero_cta2: 'Ver funciones',
+        stat_bpm: 'BPM en vivo', stat_steps: 'Pasos hoy', stat_sleep: 'Calidad sueño',
+        dog_label: 'Bienestar integral',
+        dog_h2: 'Cada dato,<br>una historia<br>de <em style="color:var(--primary);font-style:normal;">bienestar.</em>',
+        dog_p: 'Dogs Feels convierte señales invisibles — ritmo cardíaco, temperatura, patrones de sueño — en información clara y accionable para que cuides a tu perro como merece.',
+        pill_heart: 'Ritmo Cardíaco', pill_activity: 'Actividad Física', pill_sleep: 'Calidad de Sueño',
+        pill_stress: 'Nivel de Estrés', pill_temp: 'Temperatura', pill_mood: 'Estado Emocional',
+        pill_gps: 'Zona Segura GPS', pill_ai: 'Sugerencias IA',
+        dog_cta: 'Ver mi perro en tiempo real →',
+        feat_label: 'Funciones principales', feat_h2: 'Tecnología con alma canina',
+        feat_p: 'Biometría avanzada, IA de última generación y años de investigación veterinaria para crear el vínculo más profundo entre tú y tu perro.',
+        feat1_h: 'Biometría en Tiempo Real', feat1_p: 'Monitoreo continuo del ritmo cardíaco, temperatura, pasos y calidad de sueño. Detecta estrés, fatiga o alegría antes de que sean evidentes.',
+        feat2_h: 'IA con Gemini', feat2_p: 'Algoritmos entrenados con Google Gemini que analizan el estado emocional de tu mascota y generan recomendaciones personalizadas cada día.',
+        feat3_h: 'Zona Segura Activa', feat3_p: 'Perímetro de seguridad personalizable con alertas inmediatas. Sabe en todo momento dónde está tu perro y recibe alertas si sale de su zona.',
+        feat4_h: 'Tracking de Actividad', feat4_p: 'Registra paseos, juego y descanso con distancia, duración y estadísticas semanales para optimizar el bienestar físico de tu mascota.',
+        feat5_h: 'Análisis de Sueño', feat5_p: 'Patrones de descanso detallados con gráficas semanales. Identifica irregularidades que pueden indicar problemas de salud o ansiedad.',
+        feat6_h: 'Tienda Personalizada', feat6_p: 'Productos seleccionados por IA según el perfil único de tu mascota: raza, edad, nivel de actividad y estado emocional actual.',
+        screens_label: 'La app en detalle', screens_h2: 'Todo lo que necesita tu perro, en una sola pantalla.',
+        screens_p: 'Dogs Feels centraliza el bienestar completo de tu mascota. Desde métricas de salud en vivo hasta productos recomendados por IA según su perfil único.',
+        check1: 'Monitor de salud con 5 métricas biométricas', check2: 'Recomendaciones IA generadas por Gemini',
+        check3: 'Historial de actividades y análisis de sueño', check4: 'Tienda personalizada según el perfil de tu perro',
+        check5: 'Zona segura con alertas en tiempo real', check6: 'Perfil completo: raza, edad, peso, género',
+        screens_cta: 'Explorar la app →',
+        how_label: 'Proceso', how_h2: 'Empieza en 4 pasos simples',
+        how_p: 'En minutos tienes acceso completo a todas las funciones de bienestar para tu mejor amigo.',
+        step1_h: 'Crea tu cuenta', step1_p: 'Regístrate con email o Google en menos de 30 segundos.',
+        step2_h: 'Configura el perfil', step2_p: 'Ingresa nombre, raza, edad y peso de tu perro.',
+        step3_h: 'Conecta el dispositivo', step3_p: 'Vincula el arnés o collar inteligente para datos en vivo.',
+        step4_h: 'Entiéndelo', step4_p: 'La IA analiza sus datos y te da insights personalizados cada día.',
+        store_label: 'Tienda', store_h2: 'Productos seleccionados por IA',
+        store_p: 'Cada recomendación está personalizada según el perfil de tu mascota: raza, edad, nivel de actividad y estado emocional actual.',
+        cta_h2: '¿Listo para<br>entender a tu perro?',
+        cta_p: 'Únete a miles de dueños que ya han transformado su relación con sus mascotas gracias a la tecnología de Dogs Feels.',
+        cta_btn: 'Comenzar ahora →',
+      },
+      en: {
+        nav_features: 'Features', nav_app: 'The App', nav_how: 'How it works', nav_store: 'Store',
+        login: 'Log in', try_free: 'Try for free', enter_app: 'Open the app →',
+        hero_eyebrow: 'Canine wellness AI',
+        hero_h1: 'Understand your<br>dog\'s<br><em>true soul.</em>',
+        hero_sub: 'The first app combining real-time biometrics, artificial intelligence and emotional tracking so you never miss how your dog is feeling.',
+        hero_cta: 'Start for free →', hero_cta2: 'See features',
+        stat_bpm: 'Live BPM', stat_steps: 'Steps today', stat_sleep: 'Sleep quality',
+        dog_label: 'Complete wellness',
+        dog_h2: 'Every data point,<br>a story of<br><em style="color:var(--primary);font-style:normal;">wellbeing.</em>',
+        dog_p: 'Dogs Feels turns invisible signals — heart rate, temperature, sleep patterns — into clear, actionable information so you can care for your dog as they deserve.',
+        pill_heart: 'Heart Rate', pill_activity: 'Physical Activity', pill_sleep: 'Sleep Quality',
+        pill_stress: 'Stress Level', pill_temp: 'Temperature', pill_mood: 'Emotional State',
+        pill_gps: 'Safe Zone GPS', pill_ai: 'AI Suggestions',
+        dog_cta: 'See my dog in real time →',
+        feat_label: 'Key features', feat_h2: 'Technology with a canine soul',
+        feat_p: 'Advanced biometrics, cutting-edge AI and years of veterinary research to create the deepest bond between you and your dog.',
+        feat1_h: 'Real-Time Biometrics', feat1_p: 'Continuous monitoring of heart rate, temperature, steps and sleep quality. Detects stress, fatigue or joy before they become obvious.',
+        feat2_h: 'AI with Gemini', feat2_p: 'Algorithms trained with Google Gemini that analyse your pet\'s emotional state and generate personalised recommendations every day.',
+        feat3_h: 'Active Safe Zone', feat3_p: 'Customisable security perimeter with instant alerts. Know where your dog is at all times and get alerted if they leave their zone.',
+        feat4_h: 'Activity Tracking', feat4_p: 'Logs walks, play and rest with distance, duration and weekly stats to optimise your pet\'s physical wellbeing.',
+        feat5_h: 'Sleep Analysis', feat5_p: 'Detailed rest patterns with weekly charts. Identifies irregularities that may signal health problems or anxiety.',
+        feat6_h: 'Personalised Store', feat6_p: 'Products selected by AI based on your pet\'s unique profile: breed, age, activity level and current emotional state.',
+        screens_label: 'The app in detail', screens_h2: 'Everything your dog needs, on one screen.',
+        screens_p: 'Dogs Feels centralises your pet\'s complete wellbeing. From live health metrics to AI-recommended products based on their unique profile.',
+        check1: 'Health monitor with 5 biometric metrics', check2: 'AI recommendations generated by Gemini',
+        check3: 'Activity history and sleep analysis', check4: 'Personalised store based on your dog\'s profile',
+        check5: 'Safe zone with real-time alerts', check6: 'Full profile: breed, age, weight, gender',
+        screens_cta: 'Explore the app →',
+        how_label: 'Process', how_h2: 'Get started in 4 simple steps',
+        how_p: 'In minutes you have full access to all the wellness features for your best friend.',
+        step1_h: 'Create your account', step1_p: 'Sign up with email or Google in under 30 seconds.',
+        step2_h: 'Set up your profile', step2_p: 'Enter your dog\'s name, breed, age and weight.',
+        step3_h: 'Connect the device', step3_p: 'Link the smart harness or collar for live data.',
+        step4_h: 'Understand them', step4_p: 'The AI analyses their data and gives you personalised insights every day.',
+        store_label: 'Store', store_h2: 'AI-selected products',
+        store_p: 'Every recommendation is personalised to your pet\'s profile: breed, age, activity level and current emotional state.',
+        cta_h2: 'Ready to<br>understand your dog?',
+        cta_p: 'Join thousands of owners who have already transformed their relationship with their pets thanks to Dogs Feels technology.',
+        cta_btn: 'Start now →',
+      }
+    };
+
+    function applyLang(lang) {
+      localStorage.setItem('df_lang', lang);
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang][key] !== undefined) el.textContent = i18n[lang][key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (i18n[lang][key] !== undefined) el.innerHTML = i18n[lang][key];
+      });
+    }
+
+    // Init from saved preference
+    applyLang(localStorage.getItem('df_lang') || 'es');
   </script>
 </body>
 </html>

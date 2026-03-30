@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Stethoscope, MapPin, Phone, Navigation, RefreshCw, AlertCircle, Clock } from 'lucide-react';
 import { Header } from '../components/Header';
+import { useLanguage } from '../contexts/LanguageContext';
 import { cn } from '../lib/utils';
 
 interface Vet {
@@ -34,7 +35,7 @@ const OVERPASS_ENDPOINTS = [
   'https://maps.mail.ru/osm/tools/overpass/api/interpreter',
 ];
 
-async function fetchNearbyVets(lat: number, lon: number): Promise<Vet[]> {
+async function fetchNearbyVets(lat: number, lon: number, addressFallback: string): Promise<Vet[]> {
   const radius = 6000; // 6 km
   const query = `[out:json][timeout:30];(node["amenity"="veterinary"](around:${radius},${lat},${lon});way["amenity"="veterinary"](around:${radius},${lat},${lon}););out body center;`;
 
@@ -58,7 +59,7 @@ async function fetchNearbyVets(lat: number, lon: number): Promise<Vet[]> {
           const street  = tags['addr:street'] ?? '';
           const num     = tags['addr:housenumber'] ?? '';
           const city    = tags['addr:city'] ?? tags['addr:town'] ?? '';
-          const address = [street && `${street} ${num}`.trim(), city].filter(Boolean).join(', ') || 'Dirección no disponible';
+          const address = [street && `${street} ${num}`.trim(), city].filter(Boolean).join(', ') || addressFallback;
           return {
             id: el.id,
             name: tags.name ?? 'Veterinaria',
@@ -89,6 +90,7 @@ function mapsUrl(lat: number, lon: number, name: string) {
 }
 
 export function Vets() {
+  const { t, lang } = useLanguage();
   const [vets, setVets] = useState<Vet[]>([]);
   const [userCoords, setUserCoords] = useState<{ lat: number; lon: number } | null>(null);
   const [status, setStatus] = useState<'idle' | 'locating' | 'loading' | 'done' | 'geo_error' | 'fetch_error'>('idle');
@@ -102,7 +104,7 @@ export function Vets() {
         setUserCoords({ lat, lon });
         setStatus('loading');
         try {
-          const results = await fetchNearbyVets(lat, lon);
+          const results = await fetchNearbyVets(lat, lon, t('address_unavailable'));
           setVets(results);
           setStatus('done');
         } catch {
@@ -116,6 +118,13 @@ export function Vets() {
 
   useEffect(() => { load(); }, []);
 
+  const vetsFoundText = (n: number) => {
+    if (lang === 'en') {
+      return `${n} veterinarian${n !== 1 ? 's' : ''} found near you`;
+    }
+    return `${n} veterinario${n !== 1 ? 's' : ''} encontrado${n !== 1 ? 's' : ''} cerca de ti`;
+  };
+
   return (
     <div className="bg-surface font-body text-on-surface min-h-screen pb-32">
       <Header />
@@ -125,8 +134,8 @@ export function Vets() {
         {/* Title */}
         <section className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-extrabold tracking-tight">Veterinarios</h1>
-            <p className="text-on-surface-variant font-medium mt-1">Clínicas cercanas a tu ubicación</p>
+            <h1 className="text-4xl font-extrabold tracking-tight">{t('vets_title')}</h1>
+            <p className="text-on-surface-variant font-medium mt-1">{t('vets_subtitle')}</p>
           </div>
           <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
             <Stethoscope className="w-6 h-6" />
@@ -138,7 +147,7 @@ export function Vets() {
           <div className="flex items-center gap-2 bg-primary/5 border border-primary/10 rounded-full px-4 py-2 w-fit">
             <MapPin className="w-4 h-4 text-primary" />
             <span className="text-xs font-bold text-primary uppercase tracking-widest">
-              Ubicación detectada
+              {t('location_detected')}
             </span>
             <button onClick={load} className="ml-1 text-primary hover:text-primary/70 transition-colors" aria-label="Actualizar">
               <RefreshCw className="w-3.5 h-3.5" />
@@ -153,7 +162,7 @@ export function Vets() {
               <Stethoscope className="w-8 h-8 text-primary" />
             </div>
             <p className="font-bold text-on-surface-variant">
-              {status === 'locating' ? 'Detectando tu ubicación…' : 'Buscando veterinarios cercanos…'}
+              {status === 'locating' ? t('detecting_location') : t('searching_vets')}
             </p>
           </div>
         )}
@@ -161,10 +170,10 @@ export function Vets() {
         {status === 'geo_error' && (
           <div className="bg-error/5 border border-error/20 rounded-2xl p-6 flex flex-col items-center gap-3 text-center">
             <AlertCircle className="w-8 h-8 text-error" />
-            <p className="font-bold">No pudimos acceder a tu ubicación.</p>
-            <p className="text-sm text-on-surface-variant">Activa los permisos de geolocalización en tu navegador.</p>
+            <p className="font-bold">{t('geo_error_title')}</p>
+            <p className="text-sm text-on-surface-variant">{t('geo_error_hint')}</p>
             <button onClick={load} className="mt-2 bg-primary text-white px-6 py-2 rounded-full font-bold text-sm">
-              Intentar de nuevo
+              {t('try_again')}
             </button>
           </div>
         )}
@@ -172,10 +181,10 @@ export function Vets() {
         {status === 'fetch_error' && (
           <div className="bg-error/5 border border-error/20 rounded-2xl p-6 flex flex-col items-center gap-3 text-center">
             <AlertCircle className="w-8 h-8 text-error" />
-            <p className="font-bold">Error al buscar veterinarios.</p>
-            <p className="text-sm text-on-surface-variant">Comprueba tu conexión e intenta de nuevo.</p>
+            <p className="font-bold">{t('fetch_error_title')}</p>
+            <p className="text-sm text-on-surface-variant">{t('fetch_error_hint')}</p>
             <button onClick={load} className="mt-2 bg-primary text-white px-6 py-2 rounded-full font-bold text-sm">
-              Reintentar
+              {t('retry')}
             </button>
           </div>
         )}
@@ -183,9 +192,9 @@ export function Vets() {
         {status === 'done' && vets.length === 0 && (
           <div className="bg-surface-container-low rounded-2xl p-8 flex flex-col items-center gap-3 text-center">
             <Stethoscope className="w-10 h-10 text-on-surface-variant/40" />
-            <p className="font-bold text-on-surface-variant">No se encontraron veterinarios en un radio de 6 km.</p>
+            <p className="font-bold text-on-surface-variant">{t('no_vets')}</p>
             <button onClick={load} className="mt-2 bg-primary text-white px-6 py-2 rounded-full font-bold text-sm">
-              Buscar de nuevo
+              {t('search_again')}
             </button>
           </div>
         )}
@@ -193,7 +202,7 @@ export function Vets() {
         {/* Results count */}
         {status === 'done' && vets.length > 0 && (
           <p className="text-sm font-bold text-on-surface-variant px-1">
-            {vets.length} veterinario{vets.length !== 1 ? 's' : ''} encontrado{vets.length !== 1 ? 's' : ''} cerca de ti
+            {vetsFoundText(vets.length)}
           </p>
         )}
 
@@ -267,7 +276,7 @@ export function Vets() {
                   className="flex-1 flex items-center justify-center gap-2 bg-primary text-white py-2.5 rounded-full font-bold text-sm active:scale-95 transition-transform"
                 >
                   <Navigation className="w-4 h-4" />
-                  Cómo llegar
+                  {t('get_directions')}
                 </a>
                 {vet.phone && (
                   <a

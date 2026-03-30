@@ -1,6 +1,7 @@
 import { ShoppingBag, Search, Filter, Star, ChevronRight } from 'lucide-react';
 import { Header } from '../components/Header';
 import { useUser } from '../contexts/UserContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const products = [
   { id: 1,  name: 'Arnés Snoopy Premium',         price: '$34.90',  rating: 4.9, image: '/images/arnes.png',           category: 'Accesorios' },
@@ -26,7 +27,8 @@ const products = [
 
 export function Store() {
   const { user } = useUser();
-  const petName = user?.petName || 'Tu Mascota';
+  const { t } = useLanguage();
+  const petName = user?.petName || t('your_pet');
 
   return (
     <div className="bg-surface font-body text-on-surface min-h-screen pb-32">
@@ -41,9 +43,9 @@ export function Store() {
             </div>
           </div>
           <div className="relative">
-            <input 
-              type="text" 
-              placeholder="Buscar productos..."
+            <input
+              type="text"
+              placeholder={t('search_placeholder')}
               className="w-full bg-surface-container-low border-none focus:ring-primary/20 rounded-full px-6 py-4 pl-12 shadow-sm"
             />
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant w-5 h-5" />
@@ -54,7 +56,7 @@ export function Store() {
         </header>
 
         <section className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
-          {['Todos', 'Accesorios', 'Transporte', 'Kit Completo', 'Descanso', 'Ropa', 'Cuidado'].map((cat, i) => (
+          {[t('all'), t('accessories'), t('transport'), t('kit'), t('rest'), t('clothing'), t('care')].map((cat, i) => (
             <button 
               key={i} 
               className={`px-6 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-colors ${
@@ -91,7 +93,7 @@ export function Store() {
                 </div>
                 <div className="mt-6 flex gap-3">
                   <button className="flex-1 bg-primary text-white py-3 rounded-full font-bold text-sm active:scale-95 transition-transform">
-                    Añadir al carrito
+                    {t('add_to_cart')}
                   </button>
                   <button className="w-12 h-12 bg-surface-container-highest rounded-full flex items-center justify-center text-on-surface-variant active:scale-95 transition-transform">
                     <ChevronRight className="w-5 h-5" />
