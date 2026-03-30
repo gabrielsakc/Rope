@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/home",     "destination": "/app.html" },
+    { "source": "/health",   "destination": "/app.html" },
+    { "source": "/tracking", "destination": "/app.html" },
+    { "source": "/store",    "destination": "/app.html" },
+    { "source": "/profile",  "destination": "/app.html" },
+    { "source": "/vets",     "destination": "/app.html" }
+  ]
+}
