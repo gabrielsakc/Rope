@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PawPrint, Apple, ArrowRight, Camera, User, Mail, Lock } from 'lucide-react';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../lib/firebase';
 import { useUser } from '../contexts/UserContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -27,6 +29,20 @@ export function Login({ onLogin }: { onLogin: () => void }) {
         setFormData(prev => ({ ...prev, petPhoto: reader.result as string }));
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError(null);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const { displayName, photoURL } = result.user;
+      updateProfile({ displayName: displayName || '', photoURL: photoURL || '' });
+      onLogin();
+    } catch (err: any) {
+      if (err.code !== 'auth/popup-closed-by-user') {
+        setError(err.message || 'Google sign-in failed');
+      }
     }
   };
 
@@ -253,8 +269,8 @@ export function Login({ onLogin }: { onLogin: () => void }) {
                 <Apple className="w-5 h-5 fill-current" />
                 <span className="text-sm font-bold">Apple</span>
               </button>
-              <button className="flex items-center justify-center gap-3 py-4 bg-[#F2F4F2] hover:bg-surface-container-low transition-colors rounded-2xl border border-outline-variant/5">
-                <img src="https://www.google.com/favicon.ico" className="w-4 h-4 grayscale" alt="Google" />
+              <button onClick={handleGoogleLogin} className="flex items-center justify-center gap-3 py-4 bg-[#F2F4F2] hover:bg-surface-container-low transition-colors rounded-2xl border border-outline-variant/5 active:scale-95">
+                <img src="https://www.google.com/favicon.ico" className="w-4 h-4" alt="Google" />
                 <span className="text-sm font-bold">Google</span>
               </button>
             </div>
