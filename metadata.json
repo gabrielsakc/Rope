@@ -1,0 +1,5 @@
+{
+  "name": "Dogs Feels",
+  "description": "The living sanctuary for your best friend's wellness. A premium dog wellness app with real-time biometrics, emotional tracking, and expert guidance.",
+  "requestFramePermissions": ["geolocation"]
+}

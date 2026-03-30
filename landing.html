@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dogs Feels - Entiende su alma</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #526352;
+            --secondary: #90A18C;
+            --accent: #E8F0E8;
+            --background: #FAF9F5;
+            --text: #1A1C19;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(250, 249, 245, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 24px;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            margin-left: 40px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(82, 99, 82, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(82, 99, 82, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 0 8%;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 10;
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 84px;
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 24px;
+            letter-spacing: -3px;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 60%;
+            height: 100%;
+            clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
+            z-index: 5;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-cover: cover;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            bottom: -50px;
+            left: -20px;
+            font-size: 250px;
+            font-weight: 900;
+            color: rgba(0,0,0,0.03);
+            z-index: 1;
+            user-select: none;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 160px 8%;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 80px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            padding: 48px;
+            background: var(--background);
+            border-radius: 40px;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            background: white;
+            transform: scale(1.05);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.05);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            padding: 100px 8%;
+            position: relative;
+        }
+
+        .cta-box {
+            background: var(--primary);
+            padding: 80px;
+            border-radius: 60px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::after {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .cta-content h2 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .cta-content p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 500px;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 8% 40px;
+            background: var(--background);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            font-size: 20px;
+            margin-bottom: 24px;
+            display: block;
+            color: var(--primary);
+        }
+
+        .social-links {
+            margin-bottom: 40px;
+        }
+
+        .social-links a {
+            margin: 0 15px;
+            color: #888;
+            text-decoration: none;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: #999;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content h1 { font-size: 64px; }
+            .hero-image { width: 50%; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 20px 5%; }
+            nav { display: none; }
+            .hero { padding: 120px 5% 0; align-items: flex-start; text-align: center; height: auto; }
+            .hero-content { margin: 0 auto; }
+            .hero-content h1 { font-size: 52px; letter-spacing: -1px; }
+            .hero-image { position: relative; width: 100%; height: 400px; clip-path: none; border-radius: 30px; margin-top: 40px; }
+            .cta-box { flex-direction: column; text-align: center; padding: 60px 40px; gap: 40px; }
+            .cta-content h2 { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            <div class="logo-icon">🐾</div>
+            Dogs Feels
+        </a>
+        <nav>
+            <a href="#experiencia">Experiencia</a>
+            <a href="#tecnologia">Tecnología</a>
+            <a href="#comunidad">Comunidad</a>
+            <a href="http://localhost:3000" class="btn">Probar App</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg-text">DOGS</div>
+        <div class="hero-content">
+            <h1>Libera su <br> <span style="color: var(--primary)">voz interior.</span></h1>
+            <p>La primera plataforma de Inteligencia Artificial diseñada para traducir los sentimientos de tu perro a través de biometría y patrones de comportamiento.</p>
+            <div class="hero-btns">
+                <a href="http://localhost:3000" class="btn">Comenzar AHORA</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="/images/razasperro-30.jpeg" alt="Perro feliz">
+        </div>
+    </section>
+
+    <section class="features" id="experiencia">
+        <div class="section-header">
+            <h2>Tecnología con Alma</h2>
+            <p>Hemos combinado años de estudios veterinarios con los modelos de IA más avanzados para crear un puente real entre especies.</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Deep EMpathy</h3>
+                <p>Algoritmos entrenados para identificar micro-expresiones y tonos de ladrido imperceptibles para el humano.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💓</div>
+                <h3>Biometría Real</h3>
+                <p>Monitoreo constante de constantes vitales para detectar estrés, alegría o fatiga antes de que sean evidentes.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Consejos Pro</h3>
+                <p>Recomendaciones personalizadas basadas en el estado emocional actual de tu mejor amigo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-box">
+            <div class="cta-content">
+                <h2>¿Listo para <br> entenderlo?</h2>
+                <p>Únete a más de 50,000 dueños que ya han transformado su relación con sus mascotas.</p>
+            </div>
+            <a href="http://localhost:3000" class="btn btn-white">Entrar con "usuario"</a>
+        </div>
+    </section>
+
+    <footer>
+        <span class="footer-logo">Dogs Feels</span>
+        <div class="social-links">
+            <a href="#">IG</a>
+            <a href="#">TW</a>
+            <a href="#">FB</a>
+        </div>
+        <p class="copyright">© 2026 Dogs Feels Team. Crafted with 🤍 for dogs.</p>
+    </footer>
+
+</body>
+</html>
